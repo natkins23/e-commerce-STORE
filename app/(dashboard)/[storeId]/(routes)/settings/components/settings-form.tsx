@@ -96,10 +96,8 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       </div>
       <Separator />
       <Form {...form}>
-        <form
-          className="space-y-8 w-full"
-          onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid g  id-cols-3 gap-8">
+        <form className="space-y-8 w-full" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="name"
@@ -107,11 +105,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Store name"
-                      {...field}
-                    />
+                    <Input disabled={loading} placeholder="Store name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
