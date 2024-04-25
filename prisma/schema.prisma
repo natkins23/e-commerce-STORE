@@ -21,6 +21,7 @@ model Store {
   updatedAt DateTime @updatedAt
   sizes Size[]
   colors Color[]
+  products Product[]
 
 
 }
@@ -46,7 +47,7 @@ model Store {
     name String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
+    products Product[]
 
     @@index([storeId])
     @@index([billboardId])
@@ -61,7 +62,7 @@ model Size{
   value String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  //products Products[]
+  products Product[]
   
   @@index([storeId])
 }
@@ -74,7 +75,42 @@ model Color{
   value String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  //products Products[]
+  products Product[]
   
   @@index([storeId])
+}
+
+model Product{
+  id String @id @default(uuid())
+  storeId String
+  store Store @relation(fields:[storeId],references:[id])
+  colorId String
+  color Color @relation(fields:[colorId],references:[id])
+  sizeId String
+  size Size @relation(fields:[sizeId],references:[id])
+  categoryId String
+  category Category @relation(fields:[categoryId],references:[id])
+  name String
+  price Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isFeatured Boolean @default(false)
+  isArchived Boolean @default(false)
+  images Image[]
+
+  @@index([storeId])
+  @@index([colorId])
+  @@index([sizeId])
+  @@index([categoryId])
+
+}
+
+model Image{
+  id String @id @default(uuid())
+  productsId String
+  products Product @relation(fields:[productsId],references:[id],onDelete: Cascade)
+  url String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([productsId])
 }
